@@ -54,9 +54,64 @@ const createProductService = async (data) => {
 }
 
 
+const updateProductService = async (data) => {
+
+
+
+    // const product = await Product.updateOne({ _id: id }, { $set: update }, { runValidators: true })
+    const result = await Product.findById({ _id: id })
+    const prpduct = await product.set(update).save()
+    return product
+
+}
+
+
+const updateBulkProductService = async (data) => {
+
+    // const products = await Product.updateMany({ _id: data.ids }, data.data, { runValidators: true })
+
+
+    const products = [];
+
+    data.ids.forEach((product) => {
+        products.push(Product.updateOne({ _id: product.id }, product.data))
+
+    })
+    const result = await Promise.all(products)
+
+    return result
+
+}
+
+
+const deleteProductByIdService = async (id) => {
+
+ const result =await  Product.deleteOne({_id:id})
+
+
+
+    return result
+
+}
+
+const deleteBulkProductService = async (ids) => {
+
+    const result =await  Product.deleteMany({_id:ids})
+   
+
+       return result
+   
+   }
+deleteBulkProductService
+
+
 module.exports = {
     getProductsService,
-    createProductService
+    createProductService,
+    updateProductService,
+    updateBulkProductService,
+    deleteProductByIdService,
+    deleteBulkProductService
 
 }
 
