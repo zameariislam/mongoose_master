@@ -41,12 +41,23 @@ const createProduct = async (req, res) => {
 
 
 const getProducts = async (req, res) => {
-    // console.log(req.query)
-    const filters = { ...req.query }
+    console.log(req.query)
+
+
+
+    let filters = { ...req.query }
     const excludeFields = ['sort', 'limit']
 
     // // exclude something 
     excludeFields.forEach(field => delete filters[field])
+
+    // {price:{$gt:50}}
+    // price[gt]=50
+    // gte,lte,gt,lt 
+    let filterString = JSON.stringify(filters)
+    filterString = filterString.replace(/\b(gt|lt|gte|lte)\b/g, match => `$${match}`)
+     filters = JSON.parse(filterString)
+
 
     const queries = {}
 

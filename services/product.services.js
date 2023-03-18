@@ -38,7 +38,7 @@ const getProductsService = async (filters, queries) => {
     // const products = await Product.findById('6415914cd5a3528e6366ff01')
 
     const products = await Product
-        .find({})
+        .find(filters)
         .select(queries.fields)
         .sort(queries.sortBy)
     return products
