@@ -41,11 +41,34 @@ const createProduct = async (req, res) => {
 
 
 const getProducts = async (req, res) => {
+    // console.log(req.query)
+    const filters = { ...req.query }
+    const excludeFields = ['sort', 'limit']
+
+    // // exclude something 
+    excludeFields.forEach(field => delete filters[field])
+
+    const queries = {}
+
+    if (req.query.sort) {
+        const sortBy = req.query.sort.split(',').join(' ')
+        queries.sortBy = sortBy
+
+    }
+
+
+    if (req.query.fields) {
+        const fields = req.query.fields.split(',').join(' ')
+        queries.fields = fields
+
+
+    }
+    console.log('query', queries)
 
 
     try {
 
-        const products = await getProductsService()
+        const products = await getProductsService(filters, queries)
         res.status(200).json({
             status: 'success',
 
@@ -143,10 +166,10 @@ const deleteProductById = async (req, res, next) => {
 
         const product = await deleteProductByIdService(id)
 
-        if(!result.deletedCount){
-           return  res.status(400).json({
+        if (!result.deletedCount) {
+            return res.status(400).json({
                 status: 'fail',
-    
+
                 error: 'could not find the product'
             })
 
@@ -186,7 +209,7 @@ const bulkDeleteProduct = async (req, res, next) => {
         res.status(200).json({
             status: 'success',
 
-            message:'Sucessfully deleted  the given products' 
+            message: 'Sucessfully deleted  the given products'
         })
 
     }

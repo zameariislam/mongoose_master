@@ -1,7 +1,8 @@
 const Product = require('../models/Product')
 
-const getProductsService = async (data) => {
+const getProductsService = async (filters, queries) => {
 
+    // console.log(data)
 
 
     // const products = await Product.find({ _id: '64158ed4a81d5030d33974dd',name:"rice" })
@@ -36,7 +37,10 @@ const getProductsService = async (data) => {
 
     // const products = await Product.findById('6415914cd5a3528e6366ff01')
 
-    const products = await Product.find({})
+    const products = await Product
+        .find({})
+        .select(queries.fields)
+        .sort(queries.sortBy)
     return products
 }
 
@@ -86,7 +90,7 @@ const updateBulkProductService = async (data) => {
 
 const deleteProductByIdService = async (id) => {
 
- const result =await  Product.deleteOne({_id:id})
+    const result = await Product.deleteOne({ _id: id })
 
 
 
@@ -96,12 +100,12 @@ const deleteProductByIdService = async (id) => {
 
 const deleteBulkProductService = async (ids) => {
 
-    const result =await  Product.deleteMany({_id:ids})
-   
+    const result = await Product.deleteMany({ _id: ids })
 
-       return result
-   
-   }
+
+    return result
+
+}
 deleteBulkProductService
 
 
