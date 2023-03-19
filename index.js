@@ -1,4 +1,7 @@
 const express = require('express')
+const productRouter = require('./route/product.route')
+
+const connectDatabase = require('./server')
 
 const app = express()
 
@@ -8,16 +11,19 @@ require('dotenv').config()
 
 
 const port = process.env.PORT || 5000
-const connectDatabase = require('./server')
+
 
 
 
 
 //   routes 
 
-const productRouter = require('./route/product.route')
+
 
 app.use('/api/v1/product', productRouter)
+
+
+// app.use('/api/v1/brand', brandRouter)
 
 
 app.get('/', (req, res) => {

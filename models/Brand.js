@@ -2,7 +2,7 @@ const mongoose = require('require');
 const validator = require('validator')
 const { ObjectId } = mongoose.Schema.Types
 
-const brandSchema = mongoose.Schema({
+const brandSchema = new mongoose.Schema({
 
 
 
