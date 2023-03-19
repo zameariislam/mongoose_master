@@ -6,7 +6,12 @@ const { ObjectId } = mongoose.Schema.Types
 // schema  design 
 
 
-const productSchema = new mongoose.Schema({
+const stockSchema = mongoose.Schema({
+    productId: {
+        type: ObjectId,
+        ref: 'Product',
+        required: true
+    },
     name: {
         type: String,
         required: [true, 'Please provide a name for this product'],
@@ -59,6 +64,19 @@ const productSchema = new mongoose.Schema({
 
 
     }],
+    price: {
+        type: Number,
+        required: true,
+        min: [0, 'product price can not be negative']
+
+    },
+
+    quantity: {
+        type: Number,
+        required: true,
+        min: [0, 'product quantity can not be negative']
+
+    },
     category: {
         type: String,
         required: true
@@ -76,16 +94,63 @@ const productSchema = new mongoose.Schema({
 
 
         }
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: {
+            value: ['in-stock', 'out-stock', 'discontinued'],
+            message: ' status can not be {VALUE} '
+        }
+
+    },
+    store: {
+        name: {
+            type: String,
+            trim: true,
+            required: [true, "Please provide a store name"],
+            lowercase: true,
+            enum: {
+                values: ['dhaka', "rajshahi", "sylhet", "chittagram", "khulna", "barishal", "rangpur"],
+                message: "{VALUE} is not a valid name"
+            }
+
+        },
+        storeId: {
+            type: ObjectId,
+            required: true,
+            ref: 'Store',
+
+        }
+
+    },
+    suppliedBy: {
+        name: {
+            type: String,
+            trim: true,
+
+            required: [true, 'Please Provide a supplier name']
+
+        },
+        supplierId: {
+            type: ObjectId,
+            ref: 'Supplier',
+            required: true,
+
+
+        }
     }
+
+
 
 
 }, { timestamps: true })
 
 
 
-const Product = mongoose.model('Product', productSchema)
+const Stock = mongoose.model('Stock', stockSchema)
 
-module.exports = Product
+module.exports = Stock
 
 
 
