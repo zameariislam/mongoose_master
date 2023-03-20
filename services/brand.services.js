@@ -17,7 +17,8 @@ const getBrandsService = async () => {
 
     const brands = await Brand
         .find({})
-        .select('-products -suppliers')
+        // .select('-products -suppliers')
+        .populate('products')
 
     return brands
 }
