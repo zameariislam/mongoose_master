@@ -1,5 +1,5 @@
 const express = require('express')
-const productRouter = require('./route/product.route')
+
 
 const connectDatabase = require('./server')
 
@@ -18,12 +18,16 @@ const port = process.env.PORT || 5000
 
 //   routes 
 
-
+const productRouter = require('./route/product.route')
 
 app.use('/api/v1/product', productRouter)
 
+const brandRouter = require('./route/brand.route')
 
-// app.use('/api/v1/brand', brandRouter)
+
+
+
+app.use('/api/v1/brand', brandRouter)
 
 
 app.get('/', (req, res) => {
