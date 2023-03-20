@@ -56,7 +56,7 @@ const getProducts = async (req, res) => {
     // gte,lte,gt,lt 
     let filterString = JSON.stringify(filters)
     filterString = filterString.replace(/\b(gt|lt|gte|lte)\b/g, match => `$${match}`)
-     filters = JSON.parse(filterString)
+    filters = JSON.parse(filterString)
 
 
     const queries = {}
@@ -241,13 +241,31 @@ const bulkDeleteProduct = async (req, res, next) => {
 }
 
 
+const fileUploader = async (req, res, next) => {
+
+    try {
+        res.status(200).json(req.files)
+
+    }
+    catch (err) {
+
+    }
+
+}
+
+
+
+
+
 module.exports = {
     getProducts,
     createProduct,
     updateProduct,
     bulkUpdateProduct,
     deleteProductById,
-    bulkDeleteProduct
+    bulkDeleteProduct,
+    fileUploader
+
 }
 
 

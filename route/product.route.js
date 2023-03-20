@@ -1,8 +1,30 @@
 
+
+
 const express = require('express')
 const router = express.Router()
 
-const { getProducts, createProduct, updateProduct, bulkUpdateProduct, deleteProductById, bulkDeleteProduct } = require('../controllers/product.controller')
+
+const { getProducts, createProduct, updateProduct, bulkUpdateProduct, deleteProductById,
+    bulkDeleteProduct,
+    fileUploader,
+
+} = require('../controllers/product.controller')
+const uploader = require('../middlewares/uploader')
+
+
+
+
+//   file upload
+
+router.route("/file-upload")
+
+    .post(uploader.array('image'), fileUploader)
+
+
+
+
+
 
 
 router.route('/bulk-update').patch(bulkUpdateProduct)
