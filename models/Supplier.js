@@ -29,7 +29,7 @@ const supplierShema = mongoose.Schema({
         id: {
             type: ObjectId,
             ref: 'Brand',
-            required: true
+           
 
 
         }
@@ -59,7 +59,7 @@ const supplierShema = mongoose.Schema({
         required: [true, 'please provide  your trade licence number'],
 
     },
-    presentAdress: {
+    presentAddress: {
         type: String,
         required: [true, 'please provide  your present adress'],
 

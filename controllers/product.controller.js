@@ -43,26 +43,37 @@ const createProduct = async (req, res) => {
 const getProducts = async (req, res) => {
     console.log(req.query)
 
-
+    // filtering here 
 
     let filters = { ...req.query }
-    const excludeFields = ['sort', 'limit']
+    const excludeFields = ['sort', 'limit', "fields", "page"]
+
+
 
     // // exclude something 
     excludeFields.forEach(field => delete filters[field])
+    console.log('filter', filters)
 
     // {price:{$gt:50}}
     // price[gt]=50
     // gte,lte,gt,lt 
+    // sort(' quantity price')
+    // sort=name,price
+    // fields=name,description
+
     let filterString = JSON.stringify(filters)
     filterString = filterString.replace(/\b(gt|lt|gte|lte)\b/g, match => `$${match}`)
     filters = JSON.parse(filterString)
 
 
+    // quering here 
+
     const queries = {}
 
     if (req.query.sort) {
+
         const sortBy = req.query.sort.split(',').join(' ')
+
         queries.sortBy = sortBy
 
     }
@@ -74,6 +85,32 @@ const getProducts = async (req, res) => {
 
 
     }
+
+    //   page=3&limit=2
+    // 50 products 
+    // each page 10 product 
+    // page 1>1-10
+    // page 2>11-20
+    // page 3>21-30
+    // page 4>31-40
+    // page 5>41-50
+
+    // pagination here 
+
+    if (req.query.limit) {
+        const { page = 1, limit = 10 } = req.query
+        const skip = (Number(page) - 1) * Number(limit)
+
+        queries.skip = skip
+        queries.limit = Number(limit)
+
+
+    }
+
+
+
+
+
     console.log('query', queries)
 
 
@@ -173,8 +210,6 @@ const deleteProductById = async (req, res, next) => {
     try {
 
         const { id } = (req.params)
-
-
         const product = await deleteProductByIdService(id)
 
         if (!result.deletedCount) {

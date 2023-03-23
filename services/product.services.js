@@ -1,9 +1,9 @@
 const Brand = require('../models/Brand')
 const Product = require('../models/Product')
 
-const getProductsService = async (filters, queries) => {
+const getProductsService = async (filters, queries, fields) => {
 
-    // console.log(data)
+
 
 
     // const products = await Product.find({ _id: '64158ed4a81d5030d33974dd',name:"rice" })
@@ -37,12 +37,20 @@ const getProductsService = async (filters, queries) => {
     // .sort(-1)
 
     // const products = await Product.findById('6415914cd5a3528e6366ff01')
-
+    console.log(queries.skip)
+    console.log(queries.limit)
     const products = await Product
         .find(filters)
+        .skip(queries.skip)
+        .limit(queries.limit)
         .select(queries.fields)
         .sort(queries.sortBy)
-    return products
+        .limit(queries.limit)
+ 
+    const total = await Product.countDocuments(filters)
+    const page = Math.ceil(total / queries.limit);
+
+    return { products, total, page }
 }
 
 const createProductService = async (data) => {
@@ -58,7 +66,7 @@ const createProductService = async (data) => {
     await Brand
         .updateOne({ _id: brand.id },
             { $push: { products: productId } })
-            
+
 
     return product
 

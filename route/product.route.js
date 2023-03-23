@@ -23,10 +23,6 @@ router.route("/file-upload")
 
 
 
-
-
-
-
 router.route('/bulk-update').patch(bulkUpdateProduct)
 router.route('/bulk-delete').delete(bulkDeleteProduct)
 

@@ -6,7 +6,7 @@ const connectDatabase = require('./server')
 const app = express()
 
 app.use(express.json())
-app.use(express.urlencoded({ urlencoded: true }))
+
 
 
 require('dotenv').config()
@@ -26,12 +26,12 @@ app.use('/api/v1/product', productRouter)
 
 const brandRouter = require('./route/brand.route')
 const supplierRoute = require('./route/supplier.route')
-
-
+const stockRoute = require('./route/stock.route')
 
 
 app.use('/api/v1/brand', brandRouter)
 app.use('/api/v1/supplier', supplierRoute)
+app.use('/api/v1/stock', stockRoute)
 
 
 app.get('/', (req, res) => {
