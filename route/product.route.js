@@ -10,6 +10,8 @@ const { getProducts, createProduct, updateProduct, bulkUpdateProduct, deleteProd
 
 } = require('../controllers/product.controller')
 const uploader = require('../middlewares/uploader')
+const verifyToken = require('../middlewares/verifyToken')
+const authorization = require('../middlewares/authorization')
 
 // file upload 
 
@@ -24,7 +26,7 @@ router.route('/bulk-delete').delete(bulkDeleteProduct)
 
 router.route("/")
     .get(getProducts)
-    .post(createProduct)
+    .post(verifyToken, authorization("admin", "store-manager"), createProduct)
 
 
 
