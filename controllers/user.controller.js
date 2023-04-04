@@ -52,7 +52,7 @@ const login = async (req, res) => {
     try {
 
         const { email, password } = req.body
-        
+
         if (!email || !password) {
             return res.status(401).json({
                 status: 'fail',
@@ -62,7 +62,7 @@ const login = async (req, res) => {
 
 
         const user = await findUserByEmail(email)
-        console.log("user",user)
+        console.log("user", user)
 
         if (!email) {
             return res.status(401).json({
@@ -71,9 +71,9 @@ const login = async (req, res) => {
             })
         }
         const isPasswordValid = user.comparePassword(password, user.password)
-        console.log("ispass",isPasswordValid)
+        console.log("ispass", isPasswordValid)
 
-        
+
 
         if (!isPasswordValid) {
             return res.status(403).json({
@@ -95,6 +95,7 @@ const login = async (req, res) => {
 
         // generate token
         const token = generateToken(user)
+
 
 
 
@@ -126,8 +127,29 @@ const login = async (req, res) => {
 
 }
 
+const getMe = async (req, res) => {
+    try {
+        const user = await findUserByEmail(req?.user?.email)
+
+        res.status(200).json({
+            status: "success",
+            data: user
+        })
+
+    }
+    catch (err) {
+        res.status(500).json({
+            status: 'fail',
+            error: err.message
+        })
+
+    }
+
+}
+
 
 module.exports = {
     signup,
-    login
+    login,
+    getMe
 }

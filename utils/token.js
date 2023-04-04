@@ -9,7 +9,7 @@ const generateToken = (userInfo) => {
 
     }
 
-    const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: '20' })
+    const token = jwt.sign(payload, process.env.JWT_TOKEN, { expiresIn: '1hr' })
 
     return token
 
