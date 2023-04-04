@@ -1,15 +1,18 @@
-const express = require('express')
-const { createStock } = require('../controllers/stock.controller')
 
+const express = require('express')
 const router = express.Router()
 
 
-router.route('/')
-    .post(createStock)
-    .get()
-  
 
+const { getStocks, createStock
+    // bulkDeleteProduct,bulkUpdateProduct
+
+
+} = require('../controllers/stock.controller')
+
+
+router.route("/")
+    .get(getStocks)
+    .post(createStock)
 
 module.exports = router
-
-

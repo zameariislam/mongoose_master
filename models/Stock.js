@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const { ObjectId } = mongoose.Schema.Types
+
 // schema design
+
 const validator = require("validator");
 
 const stockSchema = mongoose.Schema({
@@ -8,8 +10,9 @@ const stockSchema = mongoose.Schema({
     type: ObjectId,
     ref: 'Product',
     required: true,
-   
+
   },
+  
   name: {
     type: String,
     required: [true, "Please provide a name for this product."],
@@ -53,7 +56,7 @@ const stockSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  
+
   brand: {
     name: {
       type: String,

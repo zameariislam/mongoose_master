@@ -1,9 +1,7 @@
 const { createSupplierService, getSuppliersService, updateSupplierService } = require("../services/supplier.service")
 
 const createSupplier = async (req, res) => {
-
-
-
+    
     try {
 
         const supplier = await createSupplierService(req.body)

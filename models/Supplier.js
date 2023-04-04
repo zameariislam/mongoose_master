@@ -29,7 +29,6 @@ const supplierShema = mongoose.Schema({
         id: {
             type: ObjectId,
             ref: 'Brand',
-           
 
 
         }

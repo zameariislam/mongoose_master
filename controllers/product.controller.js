@@ -278,9 +278,9 @@ const bulkDeleteProduct = async (req, res, next) => {
 
 
 const fileUploader = async (req, res, next) => {
-    console.log('hello',req.file)
+    console.log('hello',req.files)
     try {
-      res.status(200).json(req.file)
+      res.status(200).json(req.files)
     } catch (error) {
   
         res.send(error.message)

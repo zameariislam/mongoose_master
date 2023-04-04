@@ -1,4 +1,4 @@
-const { createStockService } = require("../services/stock.service")
+const { createStockService, getStocksService } = require("../services/stock.service")
 
 
 const createStock = async (req, res) => {
@@ -9,7 +9,7 @@ const createStock = async (req, res) => {
 
         res.status(200).json({
             status: 'success',
-            message: 'Supplier inserted successfully',
+            message: 'Stock creatted successfully',
             data: stock
         })
 
@@ -36,7 +36,7 @@ const getStocks = async (req, res) => {
 
 
     let filters = { ...req.query }
-    const excludeFields = ['sort', 'limit']
+    const excludeFields = ['sort', 'limit','page']
 
     // // exclude something 
     excludeFields.forEach(field => delete filters[field])
@@ -69,11 +69,11 @@ const getStocks = async (req, res) => {
 
     try {
 
-        const products = await getProductsService(filters, queries)
+        const stocks = await  getStocksService (filters, queries)
         res.status(200).json({
             status: 'success',
 
-            data: products
+            data: stocks
         })
 
     }
@@ -81,7 +81,7 @@ const getStocks = async (req, res) => {
         res.status(500).json({
             status: 'failed',
 
-            message: 'can not get data',
+            message: 'can not get stock',
             err: err.message
 
         })
@@ -92,8 +92,6 @@ const getStocks = async (req, res) => {
 
 
 }
-
-
 
 
 

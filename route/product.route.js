@@ -1,13 +1,6 @@
 
 const express = require('express')
 const router = express.Router()
-const multer = require('multer')
-const path = require('path')
-const uploader = multer({ dest: path.join(__dirname, '../uploads/') })
-
-
-
-
 
 
 
@@ -16,12 +9,13 @@ const { getProducts, createProduct, updateProduct, bulkUpdateProduct, deleteProd
     fileUploader,
 
 } = require('../controllers/product.controller')
+const uploader = require('../middlewares/uploader')
 
 // file upload 
 
 
 router.route('/file-upload')
-    .post(uploader.single('image'), fileUploader)
+    .post(uploader.array('image'), fileUploader)
 
 
 

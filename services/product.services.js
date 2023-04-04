@@ -74,13 +74,13 @@ const createProductService = async (data) => {
 }
 
 
-const updateProductService = async (data) => {
+const updateProductService = async (id,data) => {
 
 
 
-    // const product = await Product.updateOne({ _id: id }, { $set: update }, { runValidators: true })
-    const result = await Product.findById({ _id: id })
-    const prpduct = await product.set(update).save()
+    const product = await Product.updateOne({ _id: id }, { $set: data }, { runValidators: true })
+    // const result = await Product.findById({ _id: id })
+    // const prpduct = await product.set(update).save()
     return product
 
 }
