@@ -63,6 +63,7 @@ const createProductService = async (data) => {
 
     const product = await Product.create(data)
     const { _id: productId, brand } = product
+   
     await Brand
         .updateOne({ _id: brand.id },
             { $push: { products: productId } })
@@ -121,7 +122,7 @@ const deleteBulkProductService = async (ids) => {
     return result
 
 }
-deleteBulkProductService
+
 
 
 module.exports = {

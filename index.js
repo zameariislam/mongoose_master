@@ -9,6 +9,9 @@ app.use(express.json())
 
 
 
+
+
+
 require('dotenv').config()
 
 
@@ -27,11 +30,14 @@ app.use('/api/v1/product', productRouter)
 const brandRouter = require('./route/brand.route')
 const supplierRoute = require('./route/supplier.route')
 const stockRoute = require('./route/stock.route')
+const storeRoute = require('./route/store.route')
 
 
 app.use('/api/v1/brand', brandRouter)
 app.use('/api/v1/supplier', supplierRoute)
 app.use('/api/v1/stock', stockRoute)
+app.use('/api/v1/store', storeRoute)
+
 
 
 app.get('/', (req, res) => {

@@ -41,7 +41,7 @@ const createProduct = async (req, res) => {
 
 
 const getProducts = async (req, res) => {
-    console.log(req.query)
+    console.log('req', req.query)
 
     // filtering here 
 
@@ -87,6 +87,7 @@ const getProducts = async (req, res) => {
     }
 
     //   page=3&limit=2
+
     // 50 products 
     // each page 10 product 
     // page 1>1-10
@@ -97,7 +98,7 @@ const getProducts = async (req, res) => {
 
     // pagination here 
 
-    if (req.query.limit) {
+    if (req.query.page) {
         const { page = 1, limit = 10 } = req.query
         const skip = (Number(page) - 1) * Number(limit)
 
@@ -277,17 +278,14 @@ const bulkDeleteProduct = async (req, res, next) => {
 
 
 const fileUploader = async (req, res, next) => {
-
+    console.log('hello',req.file)
     try {
-        res.status(200).json(req.files)
-
+      res.status(200).json(req.file)
+    } catch (error) {
+  
+        res.send(error.message)
     }
-    catch (err) {
-
-    }
-
-}
-
+  }
 
 
 

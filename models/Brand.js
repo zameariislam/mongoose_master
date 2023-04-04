@@ -5,7 +5,6 @@ const { ObjectId } = mongoose.Schema.Types
 const brandSchema = new mongoose.Schema({
 
 
-
     name: {
         type: String,
         trim: true,

@@ -41,10 +41,11 @@ const productSchema = new mongoose.Schema({
                     return false
 
                 }
+
                 let isValid = true
 
                 value.forEach(url => {
-                    if (!validator.isURL) {
+                    if (!validator.isURL(url)) {
                         isValid = false
                     }
 
@@ -52,13 +53,13 @@ const productSchema = new mongoose.Schema({
                 })
                 return isValid
 
-
             }
         },
         message: "Please provide valide  image url"
 
 
     }],
+
     category: {
         type: String,
         required: true

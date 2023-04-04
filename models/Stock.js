@@ -6,8 +6,9 @@ const validator = require("validator");
 const stockSchema = mongoose.Schema({
   productId: {
     type: ObjectId,
+    ref: 'Product',
     required: true,
-    ref: 'Product'
+   
   },
   name: {
     type: String,
@@ -41,15 +42,18 @@ const stockSchema = mongoose.Schema({
     required: true,
     min: [0, "Product price can't be negative"]
   },
+
   quantity: {
     type: Number,
     required: true,
     min: [0, "Product quantity can't be negative"]
   },
+
   category: {
     type: String,
     required: true,
   },
+  
   brand: {
     name: {
       type: String,
